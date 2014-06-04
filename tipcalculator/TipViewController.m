@@ -7,6 +7,7 @@
 //
 
 #import "TipViewController.h"
+#import "SettingsViewController.h"
 
 @interface TipViewController ()
 
@@ -17,6 +18,12 @@
 
 - (IBAction)onTap:(id)sender;
 - (void) updatevalues;
+
+- (void)viewWillAppear:(BOOL)animated;
+- (void)viewDidAppear:(BOOL)animated;
+- (void)viewWillDisappear:(BOOL)animated;
+- (void)viewDidDisappear:(BOOL)animated;
+- (void) getTipSettings;
 
 @end
 
@@ -37,6 +44,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self updatevalues];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStylePlain target:self action:@selector(onSettingsButton)];
+
 
 }
 
@@ -64,4 +73,39 @@
     
     
 }
+
+- (void)onSettingsButton {
+    [self.navigationController pushViewController:[[SettingsViewController alloc] init] animated:YES];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    NSLog(@"view will appear");
+    [self getTipSettings];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    NSLog(@"view did appear");
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    NSLog(@"view will disappear");
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    NSLog(@"view did disappear");
+}
+
+- (void) getTipSettings {
+    
+    NSLog(@"Loading settings");
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    float floatValue = [defaults floatForKey:@"t_index"];
+    
+    NSLog(@"%f",floatValue);
+    
+    
+}
+
 @end
