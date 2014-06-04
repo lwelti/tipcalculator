@@ -54,13 +54,13 @@
     NSLog(@"In Update Settings");
 
     
-    NSArray *tipValues = @[@(0.1),@(0.15),@(0.20)];
+    NSArray *tipValues = @[@(0),@(1),@(2)];
     
-    float tipIndex = [tipValues[self.TipSettingsControl.selectedSegmentIndex] floatValue];
-    NSLog(@"%f",tipIndex);
+    int tipIndex = [tipValues[self.TipSettingsControl.selectedSegmentIndex] intValue];
+    NSLog(@"%d",tipIndex);
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setFloat:tipIndex forKey:@"t_index"];
+    [defaults setInteger:tipIndex forKey:@"t_n_index"];
     [defaults synchronize];
     
     
@@ -71,9 +71,11 @@
     
     NSLog(@"Loading settings");
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    float floatValue = [defaults floatForKey:@"t_index"];
+    int IntValue = [defaults floatForKey:@"t_n_index"] ? [defaults floatForKey:@"t_n_index"] : 0;
     
-    NSLog(@"%f",floatValue);
+    NSLog(@"%d",IntValue);
+    
+    self.TipSettingsControl.selectedSegmentIndex = IntValue;
 
 
 }

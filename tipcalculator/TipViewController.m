@@ -24,6 +24,7 @@
 - (void)viewWillDisappear:(BOOL)animated;
 - (void)viewDidDisappear:(BOOL)animated;
 - (void) getTipSettings;
+- (void) updatevaluesWithSettings;
 
 @end
 
@@ -101,10 +102,29 @@
     
     NSLog(@"Loading settings");
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    float floatValue = [defaults floatForKey:@"t_index"];
+    int IntValue = [defaults floatForKey:@"t_n_index"];
     
-    NSLog(@"%f",floatValue);
+    NSLog(@"%d",IntValue);
     
+    float billAmount = [self.BillTextField.text floatValue];
+
+    NSArray *tipValues = @[@(0.1),@(0.15),@(0.20)];
+    float tipAmount = billAmount * [tipValues[IntValue] floatValue];
+    
+    NSLog(@"new tipAmount %0.2f",tipAmount);
+    
+    float totalAmount = tipAmount + billAmount;
+    
+    self.tipLabel.text = [NSString stringWithFormat:@"$%0.2f",tipAmount];
+    self.totalLabel.text =[NSString stringWithFormat:@"$%0.2f",totalAmount];
+    
+    self.tipControl.selectedSegmentIndex=IntValue;
+    
+    
+    
+}
+
+- (void) updatevaluesWithSettings {
     
 }
 
